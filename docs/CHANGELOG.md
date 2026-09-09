@@ -1,3 +1,13 @@
+## 1.0.5 (2026-09-09)
+
+### 🩹 Fixes
+
+- **client-angular:** resolve dynamic favicon selection and service worker firestore interception (#209) ([88eb0df](https://github.com/legislative-tracker/legislative-tracker/commit/88eb0df))
+
+### ❤️ Thank You
+
+- Joshua Pelton-Stroud @jpelton-stroud
+
 ## 1.0.4 (2026-08-30)
 
 ### 🩹 Fixes
