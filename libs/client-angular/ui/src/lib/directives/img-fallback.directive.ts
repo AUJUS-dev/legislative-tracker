@@ -59,4 +59,13 @@ export class ImgFallbackDirective implements OnInit {
     this.renderer.setAttribute(img, 'src', targetFallback);
     this.renderer.addClass(img, 'is-placeholder');
   }
+
+  @HostListener('load')
+  onLoad() {
+    const targetFallback = this.appFallback() || this.DEFAULT_IMAGE;
+    const img = this.el.nativeElement;
+    if (!img.src.includes(targetFallback)) {
+      this.renderer.removeClass(img, 'is-placeholder');
+    }
+  }
 }

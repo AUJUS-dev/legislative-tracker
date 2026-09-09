@@ -122,7 +122,7 @@ export class FirebaseConfigService implements ConfigService {
             console.warn('Config fetch timed out, using cached/defaults.');
             resolve();
           }
-        }, 3000);
+        }, 5000);
 
         onSnapshot(
           configDoc,
@@ -187,14 +187,15 @@ export class FirebaseConfigService implements ConfigService {
   }
 
   private updateFavicon(url: string) {
-    let link: HTMLLinkElement | null =
-      this.document.querySelector("link[rel*='icon']");
+    let link: HTMLLinkElement | null = this.document.querySelector(
+      "link[rel='icon'], link[rel='shortcut icon']",
+    );
     if (!link) {
       link = this.document.createElement('link');
-      link.type = 'image/x-icon';
       link.rel = 'icon';
       this.document.head.appendChild(link);
     }
+    link.type = url.endsWith('.svg') ? 'image/svg+xml' : 'image/x-icon';
     link.href = url;
   }
 

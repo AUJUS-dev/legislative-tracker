@@ -103,4 +103,19 @@ describe('ImgFallbackDirective', () => {
 
     consoleSpy.mockRestore();
   });
+
+  it('should remove "is-placeholder" class when a valid image loads', () => {
+    const imgEl = defaultImg.nativeElement as HTMLImageElement;
+
+    // Simulate error first
+    defaultImg.triggerEventHandler('error', new Event('error'));
+    fixture.detectChanges();
+    expect(imgEl.classList.contains('is-placeholder')).toBe(true);
+
+    // Simulate subsequent successful load of non-fallback image
+    imgEl.src = 'https://example.com/real-logo.svg';
+    defaultImg.triggerEventHandler('load', new Event('load'));
+    fixture.detectChanges();
+    expect(imgEl.classList.contains('is-placeholder')).toBe(false);
+  });
 });

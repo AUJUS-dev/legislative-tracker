@@ -46,8 +46,7 @@
       "name": "legislative-bills",
       "urls": [
         "https://openstates.org/api/**",
-        "https://legislation.nysenate.gov/api/**",
-        "https://firestore.googleapis.com/**"
+        "https://legislation.nysenate.gov/api/**"
       ],
       "cacheConfig": {
         "maxSize": 100,

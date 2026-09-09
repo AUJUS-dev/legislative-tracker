@@ -180,12 +180,16 @@ describe('FirebaseConfigService', () => {
   });
 
   describe('Effects (Favicon & Theme)', () => {
-    it('should update favicon when config changes', async () => {
+    it('should update favicon when config changes with proper selector and MIME type', async () => {
       const mockLink = document.createElement('link');
-      vi.spyOn(documentMock, 'querySelector').mockReturnValue(mockLink);
+      const querySpy = vi
+        .spyOn(documentMock, 'querySelector')
+        .mockReturnValue(mockLink);
 
       const newConfig = {
-        branding: { faviconUrl: 'new-icon.ico' },
+        branding: {
+          faviconUrl: 'https://cwa-union.org/themes/custom/cwa_union/logo.svg',
+        },
       };
 
       mockOnSnapshot.mockImplementation((docRef, cb) => {
@@ -196,7 +200,11 @@ describe('FirebaseConfigService', () => {
       await service.load();
       await TestBed.flushEffects();
 
-      expect(mockLink.href).toContain('new-icon.ico');
+      expect(querySpy).toHaveBeenCalledWith(
+        "link[rel='icon'], link[rel='shortcut icon']",
+      );
+      expect(mockLink.href).toContain('logo.svg');
+      expect(mockLink.type).toBe('image/svg+xml');
     });
 
     it('should apply dynamic theme when primary color changes', async () => {
